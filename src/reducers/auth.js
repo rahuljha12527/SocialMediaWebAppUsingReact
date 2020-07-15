@@ -1,4 +1,6 @@
 import { LOGIN_START } from "../actions/actionTypes";
+import {LOGIN_SUCCESS} from '../actions/actionTypes';
+import {LOGIN_FAILED} from '../actions/actionTypes';
 
 const initialAuthState={
   user:{},
