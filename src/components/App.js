@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route,Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import * as jwtDecode from 'jwt-decode';  
 
 import { fetchPosts } from '../actions/posts';
 import { Home, Navbar ,Page404,Login,Signup} from './index';
@@ -13,6 +14,18 @@ import { Home, Navbar ,Page404,Login,Signup} from './index';
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
+
+    const token=localStorage.getItem('token');
+
+    if(token){
+      const user=jwtDecode(token);
+
+      console.log('user',user);
+
+      
+
+
+    }
   }
 
   render() {
