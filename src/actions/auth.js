@@ -2,9 +2,10 @@ import {
   LOGIN_START,
   LOGIN_FAILED,
   LOGIN_SUCCESS,
+  LOG_OUT,
   SIGNUP_START,
-  SIGNUP_FAILED,
   SIGNUP_SUCCESS,
+  SIGNUP_FAILED,
 } from './actionTypes';
 import { APIUrls } from '../helpers/urls';
 import { getFormBody } from '../helpers/utils';
@@ -45,6 +46,7 @@ export function login(email, password) {
       .then((data) => {
         console.log('data', data);
         if (data.success) {
+           localStorage.setItem('token', data.data.token);
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -53,27 +55,40 @@ export function login(email, password) {
   };
 }
 
-export function signup(user_name, email, password, confirm_password) {
+// export function authenticatedUser(user) {
+//   return {
+//     type: AUTHENTICATE_USER,
+//     user,
+//   };
+// }
+
+export function logoutUser() {
+  return {
+    type: LOG_OUT,
+  };
+}
+
+export function signup(name, email, password, confirm_password) {
   return (dispatch) => {
-    dispatch(startSignUp());
+    //   dispatch(startSignUp());
     const url = APIUrls.signup();
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: getFormBody({ 
-          user_name, 
-          email, 
-          password,
-        confirm_password:confirm_password, 
-        }),
+      body: getFormBody({
+        name,
+        email,
+        password,
+        confirm_password: confirm_password,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);
         if (data.success) {
-            localStorage.setItem('token',data.data.token);
+          localStorage.setItem('token', data.data.token);
           dispatch(signupSuccessful(data.data.user));
           return;
         }

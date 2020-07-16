@@ -41,8 +41,8 @@ class Signup extends Component {
         {error && <div className="alert error-dialog">{error}</div>}
         <div className="field">
           <input
-            type="name"
-            placeholder="name"
+            type="text"
+            placeholder="Name"
             required
             onChange={(e) => this.handleInputChange('name', e.target.value)}
           />
@@ -77,11 +77,11 @@ class Signup extends Component {
 
         <div className="field">
           {inProgress ? (
-            <button onClick={this.handleFormSubmit} disabled={inProgress}>
+            <button onClick={this.onFormSubmit} disabled={inProgress}>
               Signing up...
             </button>
           ) : (
-            <button onClick={this.handleFormSubmit}>Sign Up</button>
+            <button onClick={this.onFormSubmit}>Sign Up</button>
           )}
         </div>
       </form>
