@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import * as jwtDecode from 'jwt-decode';
 
 import { fetchPosts } from '../actions/posts';
-import { Home, Navbar, Page404, Login, Signup ,Settings} from './index';
+import { Home, Navbar, Page404, Login, Signup, Settings } from './index';
 import { authenticateUser } from '../actions/auth';
 
 // const Signup = () => <div>Signup</div>;
@@ -24,7 +24,18 @@ const PrivateRoute = (privateRouteProps) => {
     <Route
       path={path}
       render={(props) => {
-        return isLoggedin ? <Component {...props} /> : <Redirect to="/login" />;
+        return isLoggedin ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: {
+                from: props.location,
+              },
+            }}
+          />
+        );
       }}
     />
   );
