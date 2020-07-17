@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Switch, 
   Redirect,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -12,6 +12,8 @@ import * as jwtDecode from 'jwt-decode';
 import { fetchPosts } from '../actions/posts';
 import { Home, Navbar, Page404, Login, Signup, Settings } from './index';
 import { authenticateUser } from '../actions/auth';
+import {getAuthTokenFromLocalStorage} from '../helpers/utils';
+
 
 // const Signup = () => <div>Signup</div>;
 
@@ -44,7 +46,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
 
-    const token = localStorage.getItem('token');
+    const token = getAuthTokenFromLocalStorage();
 
     if (token) {
       const user = jwtDecode(token);

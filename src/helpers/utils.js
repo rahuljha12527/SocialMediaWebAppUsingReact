@@ -1,5 +1,7 @@
 // const { func } = require("prop-types");
 
+import { func } from "prop-types";
+
 export  function getFormBody(params){
     let formBody=[];
 
@@ -12,3 +14,7 @@ export  function getFormBody(params){
 
     return formBody.join('&');  // 'username=aakash&password=12323'
 }   
+
+export function getAuthTokenFromLocalStorage (){
+    return localStorage.getItem('token');
+}
