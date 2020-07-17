@@ -6,6 +6,7 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  AUTHENTICATE_USER,
 } from './actionTypes';
 import { APIUrls } from '../helpers/urls';
 import { getFormBody } from '../helpers/utils';
@@ -55,13 +56,14 @@ export function login(email, password) {
   };
 }
 
-// export function authenticatedUser(user) {
-//   return {
-//     type: AUTHENTICATE_USER,
-//     user,
-//   };
-// }
 
+
+export function authenticateUser(user){
+  return {
+    type:AUTHENTICATE_USER,
+    user,
+  }
+}
 export function logoutUser() {
   return {
     type: LOG_OUT,
