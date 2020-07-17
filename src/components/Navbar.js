@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import { logoutUser } from '../actions/auth';
 
 class Navbar extends Component {
-
-  logOut=()=>{
+  logOut = () => {
     localStorage.removeItem('token');
     this.props.dispatch(logoutUser());
-  }
+  };
 
   render() {
     const { auth } = this.props;
@@ -54,34 +53,33 @@ class Navbar extends Component {
           <div className="right-nav">
             {auth.isLoggedin && (
               <div className="user">
-              <img
-                src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                alt="user-dp"
-                id="user-dp"
-              />  
+                <Link to="/settings">
+                  <img
+                    src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                    alt="user-dp"
+                    id="user-dp"
+                  />
+                </Link>
 
-            <span>{auth.user.name}</span>
-            </div>
-
+                <span>{auth.user.name}</span>
+              </div>
             )}
-            
+
             <div className="nav-links ">
               <ul>
-                {!auth.isLoggedin && 
-                  <li>
-                  <Link to="/login">Log in</Link>
-                </li>}
-              
-              {auth.isLoggedin && (
-               <li onClick={this.logOut}>Log out</li>
-              )}
-                
                 {!auth.isLoggedin && (
-                   <li>
-                   <Link to="/signup">Register</Link>
-                 </li>
+                  <li>
+                    <Link to="/login">Log in</Link>
+                  </li>
                 )}
-                
+
+                {auth.isLoggedin && <li onClick={this.logOut}>Log out</li>}
+
+                {!auth.isLoggedin && (
+                  <li>
+                    <Link to="/signup">Register</Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -94,7 +92,7 @@ class Navbar extends Component {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-  };  
+  };
 }
 
 export default connect(mapStateToProps)(Navbar);
