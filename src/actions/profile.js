@@ -5,6 +5,7 @@ import {
 } from './actionTypes';
 import { APIUrls } from '../helpers/urls';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
+import { editUserFailed } from './auth';
 
 const { func } = require('prop-types');
 
@@ -41,7 +42,14 @@ export function fetchUserProfile(userId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatch(userProfileSuccess(data.data.user));
+        if(data.success){
+          dispatch(userProfileSuccess(data.data.user));
+
+          return;
+        }
+
+        dispatch(userProfileFailed(data.message));
+        
       });
   };
 }
