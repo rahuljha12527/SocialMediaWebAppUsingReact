@@ -24,6 +24,7 @@ const PrivateRoute = (privateRouteProps) => {
   const { isLoggedin, path, component: Component } = privateRouteProps;
 
   return (
+    // console.log('this.props',this.props);
     <Route
       path={path}
       render={(props) => {
@@ -88,7 +89,7 @@ class App extends React.Component {
               isLoggedin={auth.isLoggedin}
             />
             <PrivateRoute 
-              path="/user"
+              path="/user/:userId"
               component={UserProfile}
               isLoggedin={auth.isLoggedin}
               
