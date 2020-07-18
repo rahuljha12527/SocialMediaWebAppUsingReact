@@ -158,7 +158,7 @@ export function editUser(name, password, confirm_password, userId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data);
+        console.log('EDIT PROFILE data', data);
         if(data.success){
           dispatch(editUserSuccessfull(data.data.user));
           
