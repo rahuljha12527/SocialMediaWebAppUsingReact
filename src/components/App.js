@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
-  Switch, 
+  Switch,
   Redirect,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -12,9 +12,10 @@ import * as jwtDecode from 'jwt-decode';
 import { fetchPosts } from '../actions/posts';
 import { Home, Navbar, Page404, Login, Signup, Settings } from './index';
 import { authenticateUser } from '../actions/auth';
-import {getAuthTokenFromLocalStorage} from '../helpers/utils';
+import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 import UserProfile from './UserProfile';
-
+import { fetchUserFriends } from '../actions/friends';
+import friends from '../reducers/friends';
 
 // const Signup = () => <div>Signup</div>;
 
@@ -62,37 +63,44 @@ class App extends React.Component {
           name: user.name,
         })
       );
+      this.props.dispatch(fetchUserFriends());
     }
   }
 
   render() {
-    const { posts, auth } = this.props;
+    const { posts, auth ,friends} = this.props;
 
     return (
       <Router>
         <div>
-          <Navbar />
           {/* <PostsList posts={posts} /> */}
+          <Navbar />
           <Switch>
             <Route
               exact
               path="/"
               render={(props) => {
-                return <Home {...props} posts={posts} />;
+                return (
+                  <Home
+                    {...props}
+                    posts={posts}
+                    friends={friends}
+                    isLoggedin={auth.isLoggedin}
+                  />
+                );
               }}
             />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-             <PrivateRoute
-              path="/settings"  
+            <PrivateRoute
+              path="/settings"
               component={Settings}
               isLoggedin={auth.isLoggedin}
             />
-            <PrivateRoute 
+            <PrivateRoute
               path="/user/:userId"
               component={UserProfile}
               isLoggedin={auth.isLoggedin}
-              
             />
 
             <Route component={Page404} />
@@ -107,6 +115,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     auth: state.auth,
+    friends: state.friends,
   };
 }
 
