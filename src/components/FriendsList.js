@@ -2,7 +2,7 @@ import React from 'react';
 import  FriendsListItem  from './FriendsListItem';
 
 const FriendsList = (props) => {
-  console.log('prps-frineds',props.friends);
+  console.log('props-frineds',props.friends.to_user);
   return (
     <div className="friends-list">
       <div className="header">Friends</div>
