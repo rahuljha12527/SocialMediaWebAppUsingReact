@@ -31,17 +31,25 @@ export function userProfileFailed(error) {
 
 export function fetchUserProfile(userId) {
   return (dispatch) => {
+   
     dispatch(startUserProfileFetch());  
 
     const url = APIUrls.userProfile(userId);
+    console.log('dispatch url',getAuthTokenFromLocalStorage());
     fetch(url, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded', 
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
     })
-      .then((response) => response.json())
+    
+      .then((response) =>  
+       response.json()
+      
+        
+      )
       .then((data) => {
+        console.log('data bbbbbbbbbbbbbbsuccess',data);
         if(data.success){
           dispatch(userProfileSuccess(data.data.user));
 
@@ -50,6 +58,10 @@ export function fetchUserProfile(userId) {
 
         dispatch(userProfileFailed(data.message));
         
-      });
+      }).catch(error=>{
+        console.log('errrrrrrrrrrror',error);
+      })
+         
+      ;
   };
 }

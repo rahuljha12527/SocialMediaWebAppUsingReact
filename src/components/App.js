@@ -68,7 +68,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { posts, auth ,friends} = this.props;
+    const { posts, auth, friends } = this.props;
 
     return (
       <Router>

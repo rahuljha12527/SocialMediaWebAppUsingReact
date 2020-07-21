@@ -1,4 +1,4 @@
-import { FETCH_FRIEND_SUCCESS,ADD_FRIEND } from "./actionTypes";
+import { FETCH_FRIEND_SUCCESS,ADD_FRIEND, REMOVE_FRIEND } from "./actionTypes";
 import {getAuthTokenFromLocalStorage} from '../helpers/utils';
 import { APIUrls } from "../helpers/urls";
 import { func } from "prop-types";
@@ -34,4 +34,11 @@ export function addFriend(friend){
         friend,
     };
 
+}
+
+export function removeFriend(userId){
+    return{
+        type:REMOVE_FRIEND,
+        userId,
+    };
 }
