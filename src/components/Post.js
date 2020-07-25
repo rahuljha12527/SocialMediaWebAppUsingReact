@@ -36,7 +36,7 @@ class Post extends Component {
     const { comment } = this.state;
 
     const id = post._id;
-    return (  
+    return (
       <div className="post_wrapper" key={post._id}>
         <div className="post-header">
           <div className="post-avatar">
@@ -80,8 +80,14 @@ class Post extends Component {
             />
           </div>
           <div className="post-comments-list">
-            {post.comments.map((comment) => (
-              <Comment comment={comment} key={comment._id} postId={post._id} />
+            {console.log('comments js', post.comments)};
+            {post.comments.map((comm) => {
+              {
+                console.log('comments js', comm);
+              }
+            })}
+            {post.comments.map((comm) => (
+              <Comment comment={comm} key={comm._id} postId={post._id} />
             ))}
           </div>
         </div>
